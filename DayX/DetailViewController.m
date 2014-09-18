@@ -8,6 +8,9 @@
 
 #import "DetailViewController.h"
 #define margin 15
+#define EntryKey @"entry"
+#define TitleKey @"title"
+#define ContentKey @"content"
 
 @interface DetailViewController () <UITextFieldDelegate, UITextViewDelegate>
 
@@ -28,6 +31,7 @@
     self.entryTitle.placeholder = @"Entry title";
     self.entryTitle.borderStyle = UITextBorderStyleRoundedRect;
     self.entryTitle.clearButtonMode = UITextFieldViewModeWhileEditing;
+    [self.entryTitle addTarget:self action:@selector(saveEntry) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:self.entryTitle];
     
     self.entryContent = [[UITextView alloc] initWithFrame:CGRectMake(self.view.frame.size.width * .1, 145, self.view.frame.size.width * .8, 200)];
@@ -35,9 +39,27 @@
     self.entryContent.font = [UIFont systemFontOfSize:17];
     [self.view addSubview:self.entryContent];
     
-    self.doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(finishEditing)];
+    self.doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneEditing)];
     
-    NSUserDefaults 
+    NSDictionary *entry = [[NSUserDefaults standardUserDefaults] objectForKey:EntryKey];
+    [self updateWithDictionary:entry];
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    [self saveEntry];
+}
+- (void)updateWithDictionary:(NSDictionary *)dictionary {
+    if(dictionary) {
+        self.entryTitle.text = dictionary[TitleKey];
+        self.entryContent.text = dictionary[ContentKey];
+    }
+}
+
+- (void)saveEntry {
+    NSDictionary *entry = @{TitleKey: self.entryTitle.text, ContentKey: self.entryContent.text};
+    [[NSUserDefaults standardUserDefaults] setObject:entry forKey:EntryKey];
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -50,7 +72,7 @@
     return YES;
 }
 
-- (void)finishEditing {
+- (void)doneEditing {
     [self textFieldShouldReturn:self.entryTitle];
     [self textViewShouldEndEditing:self.entryContent];
     self.navigationItem.rightBarButtonItem = nil;

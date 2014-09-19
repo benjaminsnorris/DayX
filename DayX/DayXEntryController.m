@@ -62,6 +62,11 @@
     [self synchronize];
 }
 
+- (void)removeAllEntries {
+    self.entries = nil;
+    [self synchronize];
+}
+
 - (void)loadFromDefaults {
     NSArray *entryDictionaries = [[NSUserDefaults standardUserDefaults] objectForKey:EntryListKey];
     self.entries = entryDictionaries;

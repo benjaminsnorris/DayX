@@ -17,5 +17,6 @@
 - (void)addEntry:(NSDictionary *)entry;
 - (void)removeEntry:(NSDictionary *)entry;
 - (void)replaceEntry:(NSDictionary *)oldEntry withEntry:(NSDictionary *)newEntry;
+- (void)removeAllEntries;
 
 @end

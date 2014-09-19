@@ -28,6 +28,7 @@
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     [self.view addSubview:self.tableView];
+    self.title = @"Entries";
     
     self.dataSource = [DayXTableDataSource new];
     self.tableView.dataSource = self.dataSource;
@@ -38,6 +39,9 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add)];
     self.navigationItem.rightBarButtonItem = addButton;
     
+    UIBarButtonItem *clearButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear All" style:UIBarButtonItemStylePlain target:self action:@selector(clearAll)];
+    self.navigationItem.leftBarButtonItem = clearButton;
+
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -55,6 +59,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)clearAll {
+    [[DayXEntryController sharedInstance] removeAllEntries];
+    [self.tableView reloadData];
 }
 
 /*

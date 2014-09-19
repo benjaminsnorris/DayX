@@ -7,7 +7,7 @@
 //
 
 #import "DXAppDelegate.h"
-#import "ListViewController.h"
+#import "DXListViewController.h"
 
 @implementation DXAppDelegate
 
@@ -16,9 +16,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    ListViewController *viewController = [ListViewController new];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
-    self.window.rootViewController = navController;
+    DXListViewController *viewContorller = [DXListViewController new];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:viewContorller];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

@@ -1,14 +1,14 @@
 //
-//  DayXTableDataSource.h
+//  DXListTableViewDataSource.h
 //  DayX
 //
-//  Created by Ben Norris on 9/19/14.
+//  Created by Joshua Howland on 9/18/14.
 //  Copyright (c) 2014 DevMountain. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface DayXTableDataSource : NSObject <UITableViewDataSource>
+@interface DXListTableViewDataSource : NSObject <UITableViewDataSource>
 
 - (void)registerTableView:(UITableView *)tableView;
 

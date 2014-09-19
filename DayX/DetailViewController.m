@@ -7,6 +7,8 @@
 //
 
 #import "DetailViewController.h"
+#import "DayXEntryController.h"
+
 #define margin 15
 #define titleHeight 30
 #define contentHeight 200
@@ -18,8 +20,9 @@
 
 @property (nonatomic, strong) UITextField *entryTitle;
 @property (nonatomic, strong) UITextView *entryContent;
-@property (nonatomic, strong) UIBarButtonItem *doneButton;
+@property (nonatomic, strong) UIBarButtonItem *saveButton;
 @property (nonatomic, assign) CGFloat top;
+@property (nonatomic, strong) NSDictionary *dictionary;
 
 @end
 
@@ -53,7 +56,8 @@
     [self.view addSubview:self.entryContent];
     self.top += contentHeight + margin;
     
-    self.doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneEditing)];
+    self.saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveAndClose)];
+    self.navigationItem.rightBarButtonItem = self.saveButton;
     
     NSDictionary *entry = [[NSUserDefaults standardUserDefaults] objectForKey:EntryKey];
     [self updateWithDictionary:entry];
@@ -63,17 +67,24 @@
     [self saveEntry];
 }
 - (void)updateWithDictionary:(NSDictionary *)dictionary {
-    if(dictionary) {
-        self.entryTitle.text = dictionary[TitleKey];
-        self.entryContent.text = dictionary[ContentKey];
-    }
+    self.dictionary = dictionary;
+    
+    self.entryTitle.text = dictionary[TitleKey];
+    self.entryContent.text = dictionary[ContentKey];
+}
+
+- (void)saveAndClose {
+    [self saveEntry];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)saveEntry {
     NSDictionary *entry = @{TitleKey: self.entryTitle.text, ContentKey: self.entryContent.text};
-    [[NSUserDefaults standardUserDefaults] setObject:entry forKey:EntryKey];
-    
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    if (self.dictionary) {
+        [[DayXEntryController sharedInstance] replaceEntry:self.dictionary withEntry:entry];
+    } else {
+        [[DayXEntryController sharedInstance] addEntry:entry];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -86,23 +97,23 @@
     return YES;
 }
 
-- (void)doneEditing {
-    [self textFieldShouldReturn:self.entryTitle];
-    [self textViewShouldEndEditing:self.entryContent];
-    self.navigationItem.rightBarButtonItem = nil;
-}
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    [self textDidChange];
-}
-
-- (void)textViewDidBeginEditing:(UITextView *)textView {
-    [self textDidChange];
-}
-
-- (void)textDidChange {
-    self.navigationItem.rightBarButtonItem = self.doneButton;
-}
+    // Used to hide the keyboard
+//- (void)doneEditing {
+//    [self.view endEditing:YES];
+//    self.navigationItem.rightBarButtonItem = nil;
+//}
+//
+//- (void)textFieldDidBeginEditing:(UITextField *)textField {
+//    [self textDidChange];
+//}
+//
+//- (void)textViewDidBeginEditing:(UITextView *)textView {
+//    [self textDidChange];
+//}
+//
+//- (void)textDidChange {
+//    self.navigationItem.rightBarButtonItem = self.doneButton;
+//}
 
 - (CGFloat)navAndStatusBarHeight {
     return self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;

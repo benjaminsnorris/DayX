@@ -31,6 +31,9 @@
     [self.dataSource registerTableView:self.tableView];
     
     self.tableView.delegate = self;
+    
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add)];
+    self.navigationItem.rightBarButtonItem = addButton;
 
 }
 
@@ -38,6 +41,11 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     DetailViewController *detailViewController = [DetailViewController new];
     detailViewController.title = [self.dataSource tableView:tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+    [self.navigationController pushViewController:detailViewController animated:YES];
+}
+
+- (void)add {
+    DetailViewController *detailViewController = [DetailViewController new];
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 

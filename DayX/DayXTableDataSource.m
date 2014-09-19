@@ -7,11 +7,15 @@
 //
 
 #import "DayXTableDataSource.h"
+#import "DayXEntryController.h"
+
+#define TitleKey @"title"
+#define ContentKey @"content"
 
 @implementation DayXTableDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return [DayXEntryController sharedInstance].entries.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -21,7 +25,9 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     }
     
-    cell.textLabel.text = @"Title";
+    NSDictionary *entry = [DayXEntryController sharedInstance].entries[indexPath.row];
+    
+    cell.textLabel.text = entry[TitleKey];
     cell.detailTextLabel.text = @"Datestamp";
     cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.7 alpha:1.0];
     

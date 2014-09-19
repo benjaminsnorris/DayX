@@ -21,6 +21,7 @@
 		711A508F19388096005642EF /* DayXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 711A508E19388096005642EF /* DayXTests.m */; };
 		E742397819CC85D1005A2407 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E742397719CC85D1005A2407 /* ListViewController.m */; };
 		E742397B19CC86C2005A2407 /* DayXTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E742397A19CC86C2005A2407 /* DayXTableDataSource.m */; };
+		E742397E19CC90CF005A2407 /* DayXEntryController.m in Sources */ = {isa = PBXBuildFile; fileRef = E742397D19CC90CF005A2407 /* DayXEntryController.m */; };
 		E77CE2DB19C9C631003E1D86 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E77CE2DA19C9C631003E1D86 /* DetailViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,8 @@
 		E742397719CC85D1005A2407 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		E742397919CC86C2005A2407 /* DayXTableDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayXTableDataSource.h; sourceTree = "<group>"; };
 		E742397A19CC86C2005A2407 /* DayXTableDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayXTableDataSource.m; sourceTree = "<group>"; };
+		E742397C19CC90CF005A2407 /* DayXEntryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayXEntryController.h; sourceTree = "<group>"; };
+		E742397D19CC90CF005A2407 /* DayXEntryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayXEntryController.m; sourceTree = "<group>"; };
 		E77CE2D919C9C631003E1D86 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		E77CE2DA19C9C631003E1D86 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,6 +127,8 @@
 				E742397A19CC86C2005A2407 /* DayXTableDataSource.m */,
 				E77CE2D919C9C631003E1D86 /* DetailViewController.h */,
 				E77CE2DA19C9C631003E1D86 /* DetailViewController.m */,
+				E742397C19CC90CF005A2407 /* DayXEntryController.h */,
+				E742397D19CC90CF005A2407 /* DayXEntryController.m */,
 				711A507B19388095005642EF /* Images.xcassets */,
 				711A507019388095005642EF /* Supporting Files */,
 			);
@@ -255,6 +260,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E742397E19CC90CF005A2407 /* DayXEntryController.m in Sources */,
 				711A507A19388095005642EF /* DXAppDelegate.m in Sources */,
 				711A507619388095005642EF /* main.m in Sources */,
 				E742397819CC85D1005A2407 /* ListViewController.m in Sources */,

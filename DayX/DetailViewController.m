@@ -8,6 +8,8 @@
 
 #import "DetailViewController.h"
 #define margin 15
+#define titleHeight 30
+#define contentHeight 200
 #define EntryKey @"entry"
 #define TitleKey @"title"
 #define ContentKey @"content"
@@ -17,6 +19,7 @@
 @property (nonatomic, strong) UITextField *entryTitle;
 @property (nonatomic, strong) UITextView *entryContent;
 @property (nonatomic, strong) UIBarButtonItem *doneButton;
+@property (nonatomic, assign) CGFloat top;
 
 @end
 
@@ -26,18 +29,27 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.entryTitle = [[UITextField alloc] initWithFrame:CGRectMake(self.view.frame.size.width * .1, 100, self.view.frame.size.width * .8, 30)];
+    self.top = [self navAndStatusBarHeight] + margin;
+    
+    self.entryTitle = [[UITextField alloc] initWithFrame:CGRectMake(margin, self.top, self.view.frame.size.width - (margin * 2), titleHeight)];
     self.entryTitle.delegate = self;
     self.entryTitle.placeholder = @"Entry title";
     self.entryTitle.borderStyle = UITextBorderStyleRoundedRect;
     self.entryTitle.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.entryTitle addTarget:self action:@selector(saveEntry) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:self.entryTitle];
+    self.top += titleHeight + margin;
     
-    self.entryContent = [[UITextView alloc] initWithFrame:CGRectMake(self.view.frame.size.width * .1, 145, self.view.frame.size.width * .8, 200)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.top, self.view.frame.size.width, 1)];
+    lineView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.1];
+    [self.view addSubview:lineView];
+    self.top += margin + 1;
+    
+    self.entryContent = [[UITextView alloc] initWithFrame:CGRectMake(margin, self.top, self.view.frame.size.width - (margin * 2), contentHeight)];
     self.entryContent.delegate = self;
     self.entryContent.font = [UIFont systemFontOfSize:17];
     [self.view addSubview:self.entryContent];
+    self.top += contentHeight + margin;
     
     self.doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneEditing)];
     
@@ -88,6 +100,10 @@
 
 - (void)textDidChange {
     self.navigationItem.rightBarButtonItem = self.doneButton;
+}
+
+- (CGFloat)navAndStatusBarHeight {
+    return self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
 }
 
 - (void)didReceiveMemoryWarning {

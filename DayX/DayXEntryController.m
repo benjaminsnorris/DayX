@@ -42,7 +42,18 @@
 }
 
 - (void)removeEntry:(NSDictionary *)entry {
+    if (!entry) {
+        return;
+    }
     
+    NSMutableArray *mutableEntries = self.entries.mutableCopy;
+    
+    if ([mutableEntries containsObject:entry]) {
+        [mutableEntries removeObject:entry];
+    }
+    
+    self.entries = mutableEntries;
+    [self synchronize];
 }
 
 - (void)replaceEntry:(NSDictionary *)oldEntry withEntry:(NSDictionary *)newEntry {

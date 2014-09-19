@@ -17,6 +17,7 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) DayXTableDataSource *dataSource;
+@property (nonatomic, strong) UIToolbar *toolbar;
 
 @end
 
@@ -39,8 +40,20 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add)];
     self.navigationItem.rightBarButtonItem = addButton;
     
-    UIBarButtonItem *clearButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear All" style:UIBarButtonItemStylePlain target:self action:@selector(clearAll)];
-    self.navigationItem.leftBarButtonItem = clearButton;
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    
+    self.toolbar = [UIToolbar new];
+    self.toolbar.tintColor = [UIColor redColor];
+    UIBarButtonItem *clearAllButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear All" style:UIBarButtonItemStylePlain target:self action:@selector(clearAll)];
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    NSArray *buttons = [NSArray arrayWithObjects:spaceItem, clearAllButton, spaceItem, nil];
+    CGSize toolbarSize = [self.toolbar sizeThatFits:self.view.bounds.size];
+    self.toolbar.frame = CGRectMake(0, self.view.frame.size.height - toolbarSize.height, toolbarSize.width, toolbarSize.height);
+    [self.view addSubview:self.toolbar];
+    self.toolbar.hidden = YES;
+    [self.toolbar setItems:buttons animated:YES];
+
+//    self.navigationItem.leftBarButtonItem = self.clearButton;
 
 }
 
@@ -55,6 +68,24 @@
     DetailViewController *detailViewController = [DetailViewController new];
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    [self.tableView setEditing:editing animated:YES];
+    if([self.tableView isEditing]) {
+        self.toolbar.hidden = NO;
+    } else {
+        self.toolbar.hidden = YES;
+    }
+}
+
+//- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+//    NSMutableArray *mutablePlayers = self.players.mutableCopy;
+//    NSDictionary *player = mutablePlayers[sourceIndexPath.row];
+//    [mutablePlayers removeObjectAtIndex:sourceIndexPath.row];
+//    [mutablePlayers insertObject:player atIndex:destinationIndexPath.row];
+//    [self savePlayers:mutablePlayers];
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

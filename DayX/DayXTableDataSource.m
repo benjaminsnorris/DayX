@@ -28,8 +28,8 @@
     NSDictionary *entry = [DayXEntryController sharedInstance].entries[indexPath.row];
     
     cell.textLabel.text = entry[TitleKey];
-    cell.detailTextLabel.text = @"Datestamp";
-    cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.7 alpha:1.0];
+//    cell.detailTextLabel.text = @"Datestamp";
+//    cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.7 alpha:1.0];
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
@@ -39,6 +39,13 @@
 
 - (void)registerTableView:(UITableView *)tableView {
     [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass([UITableViewCell class])];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [[DayXEntryController sharedInstance] removeEntry:[DayXEntryController sharedInstance].entries[indexPath.row]];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationBottom];
+    }
 }
 
 @end

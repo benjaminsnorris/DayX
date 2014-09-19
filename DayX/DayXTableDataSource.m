@@ -30,4 +30,9 @@
     return cell;
 
 }
+
+- (void)registerTableView:(UITableView *)tableView {
+    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass([UITableViewCell class])];
+}
+
 @end

@@ -10,4 +10,6 @@
 
 @interface DayXTableDataSource : NSObject <UITableViewDataSource>
 
+- (void)registerTableView:(UITableView *)tableView;
+
 @end

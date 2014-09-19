@@ -29,6 +29,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     self.top = [self navAndStatusBarHeight] + margin;
     
     self.entryTitle = [[UITextField alloc] initWithFrame:CGRectMake(margin, self.top, self.view.frame.size.width - (margin * 2), titleHeight)];

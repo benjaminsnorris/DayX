@@ -8,6 +8,7 @@
 
 #import "ListViewController.h"
 #import "DayXTableDataSource.h"
+#import "DetailViewController.h"
 
 @interface ListViewController ()
 
@@ -22,12 +23,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     [self.view addSubview:self.tableView];
     
     self.dataSource = [DayXTableDataSource new];
     self.tableView.dataSource = self.dataSource;
+    [self.dataSource registerTableView:self.tableView];
+    
+    self.tableView.delegate = self;
 
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    DetailViewController *detailViewController = [DetailViewController new];
+    detailViewController.title = [self.dataSource tableView:tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

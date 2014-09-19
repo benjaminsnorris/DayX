@@ -28,6 +28,15 @@
 
 @implementation DetailViewController
 
+- (id)init {
+    self = [super init];
+    
+    // Initialize the properties that need to be accessed before the view is loaded
+    self.entryTitle = [UITextField new];
+    self.entryContent = [UITextView new];
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -36,7 +45,7 @@
     
     self.top = [self navAndStatusBarHeight] + margin;
     
-    self.entryTitle = [[UITextField alloc] initWithFrame:CGRectMake(margin, self.top, self.view.frame.size.width - (margin * 2), titleHeight)];
+    self.entryTitle.frame = CGRectMake(margin, self.top, self.view.frame.size.width - (margin * 2), titleHeight);
     self.entryTitle.delegate = self;
     self.entryTitle.placeholder = @"Entry title";
     self.entryTitle.borderStyle = UITextBorderStyleRoundedRect;
@@ -50,7 +59,7 @@
     [self.view addSubview:lineView];
     self.top += margin + 1;
     
-    self.entryContent = [[UITextView alloc] initWithFrame:CGRectMake(margin, self.top, self.view.frame.size.width - (margin * 2), contentHeight)];
+    self.entryContent.frame = CGRectMake(margin, self.top, self.view.frame.size.width - (margin * 2), contentHeight);
     self.entryContent.delegate = self;
     self.entryContent.font = [UIFont systemFontOfSize:17];
     [self.view addSubview:self.entryContent];
@@ -58,9 +67,6 @@
     
     self.saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveAndClose)];
     self.navigationItem.rightBarButtonItem = self.saveButton;
-    
-    NSDictionary *entry = [[NSUserDefaults standardUserDefaults] objectForKey:EntryKey];
-    [self updateWithDictionary:entry];
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
@@ -85,6 +91,7 @@
     } else {
         [[DayXEntryController sharedInstance] addEntry:entry];
     }
+    [self updateWithDictionary:entry];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

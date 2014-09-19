@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class DetailViewController;
+
 @interface DetailViewController : UIViewController
+
+- (void)updateWithDictionary:(NSDictionary *)dictionary;
 
 @end

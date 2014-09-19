@@ -9,9 +9,6 @@
 #import "DayXEntryController.h"
 
 #define EntryListKey @"entries"
-#define EntryKey @"entry"
-#define TitleKey @"title"
-#define ContentKey @"content"
 
 @interface DayXEntryController()
 
@@ -33,7 +30,15 @@
 }
 
 - (void)addEntry:(NSDictionary *)entry {
+    if (!entry) {
+        return;
+    }
     
+    NSMutableArray *mutableEntries = [[NSMutableArray alloc] initWithArray:self.entries];
+    [mutableEntries addObject:entry];
+    
+    self.entries = mutableEntries;
+    [self synchronize];
 }
 
 - (void)removeEntry:(NSDictionary *)entry {
@@ -46,7 +51,7 @@
         return;
     }
     
-    NSMutableArray *mutableEntries = [self.entries mutableCopy];
+    NSMutableArray *mutableEntries = self.entries.mutableCopy;
     
     if ([mutableEntries containsObject:oldEntry]) {
         NSInteger index = [mutableEntries indexOfObject:oldEntry];
@@ -58,7 +63,8 @@
 }
 
 - (void)loadFromDefaults {
-    
+    NSArray *entryDictionaries = [[NSUserDefaults standardUserDefaults] objectForKey:EntryListKey];
+    self.entries = entryDictionaries;
 }
 
 - (void)synchronize {

@@ -25,9 +25,9 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     }
     
-    NSDictionary *entry = [DayXEntryController sharedInstance].entries[indexPath.row];
+    DayXEntry *entry = [DayXEntryController sharedInstance].entries[indexPath.row];
     
-    cell.textLabel.text = entry[TitleKey];
+    cell.textLabel.text = entry.title;
 //    cell.detailTextLabel.text = @"Datestamp";
 //    cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.7 alpha:1.0];
     

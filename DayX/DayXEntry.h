@@ -10,6 +10,10 @@
 
 @interface DayXEntry : NSObject
 
+@property (nonatomic, strong, readonly) NSString *title;
+@property (nonatomic, strong, readonly) NSString *content;
+@property (nonatomic, strong, readonly) NSDate *datestamp;
+
 - (NSDictionary *)entryDictionary;
 - (id)initWithDictionary: (NSDictionary *)dictionary;
 

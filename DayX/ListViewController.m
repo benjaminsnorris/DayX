@@ -60,7 +60,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     DetailViewController *detailViewController = [DetailViewController new];
-    [detailViewController updateWithDictionary:[DayXEntryController sharedInstance].entries[indexPath.row]];
+    [detailViewController updateWithEntry:[DayXEntryController sharedInstance].entries[indexPath.row]];
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 

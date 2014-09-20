@@ -7,12 +7,10 @@
 //
 
 #import "DetailViewController.h"
-#import "DayXEntryController.h"
 
 #define margin 15
 #define titleHeight 30
 #define contentHeight 200
-#define EntryKey @"entry"
 #define TitleKey @"title"
 #define ContentKey @"content"
 
@@ -22,7 +20,7 @@
 @property (nonatomic, strong) UITextView *entryContent;
 @property (nonatomic, strong) UIBarButtonItem *saveButton;
 @property (nonatomic, assign) CGFloat top;
-@property (nonatomic, strong) NSDictionary *dictionary;
+@property (nonatomic, strong) DayXEntry *entry;
 
 @end
 
@@ -72,11 +70,11 @@
 - (void)textViewDidChange:(UITextView *)textView {
     [self saveEntry];
 }
-- (void)updateWithDictionary:(NSDictionary *)dictionary {
-    self.dictionary = dictionary;
+- (void)updateWithEntry:(DayXEntry *)entry {
+    self.entry = entry;
     
-    self.entryTitle.text = dictionary[TitleKey];
-    self.entryContent.text = dictionary[ContentKey];
+    self.entryTitle.text = entry.title;
+    self.entryContent.text = entry.content;
 }
 
 - (void)saveAndClose {
@@ -85,13 +83,14 @@
 }
 
 - (void)saveEntry {
-    NSDictionary *entry = @{TitleKey: self.entryTitle.text, ContentKey: self.entryContent.text};
-    if (self.dictionary) {
-        [[DayXEntryController sharedInstance] replaceEntry:self.dictionary withEntry:entry];
+    NSDictionary *dictionary = @{TitleKey: self.entryTitle.text, ContentKey: self.entryContent.text};
+    DayXEntry *entry = [[DayXEntry alloc] initWithDictionary:dictionary];
+    if (self.entry) {
+        [[DayXEntryController sharedInstance] replaceEntry:self.entry withEntry:entry];
     } else {
         [[DayXEntryController sharedInstance] addEntry:entry];
     }
-    [self updateWithDictionary:entry];
+    [self updateWithEntry:entry];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

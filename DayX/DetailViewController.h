@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DayXEntryController.h"
 
 @class DetailViewController;
 
 @interface DetailViewController : UIViewController
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary;
+- (void)updateWithEntry:(DayXEntry *)entry;
 
 @end

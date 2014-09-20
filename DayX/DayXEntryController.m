@@ -29,7 +29,7 @@
     return sharedInstance;
 }
 
-- (void)addEntry:(NSDictionary *)entry {
+- (void)addEntry:(DayXEntry *)entry {
     if (!entry) {
         return;
     }
@@ -41,7 +41,7 @@
     [self synchronize];
 }
 
-- (void)removeEntry:(NSDictionary *)entry {
+- (void)removeEntry:(DayXEntry *)entry {
     if (!entry) {
         return;
     }
@@ -56,7 +56,7 @@
     [self synchronize];
 }
 
-- (void)replaceEntry:(NSDictionary *)oldEntry withEntry:(NSDictionary *)newEntry {
+- (void)replaceEntry:(DayXEntry *)oldEntry withEntry:(DayXEntry *)newEntry {
     
     if (!oldEntry || !newEntry) {
         return;
@@ -80,11 +80,20 @@
 
 - (void)loadFromDefaults {
     NSArray *entryDictionaries = [[NSUserDefaults standardUserDefaults] objectForKey:EntryListKey];
-    self.entries = entryDictionaries;
+    NSMutableArray *entries = [NSMutableArray new];
+    for (NSDictionary *dictionary in entryDictionaries) {
+        DayXEntry *entry = [[DayXEntry alloc] initWithDictionary:dictionary];
+        [entries addObject:entry];
+    }
+    self.entries = entries;
 }
 
 - (void)synchronize {
-    [[NSUserDefaults standardUserDefaults] setObject:self.entries forKey:EntryListKey];
+    NSMutableArray *entryDictionaries = [NSMutableArray new];
+    for (DayXEntry *entry in self.entries) {
+        [entryDictionaries addObject:[entry entryDictionary]];
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:entryDictionaries forKey:EntryListKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

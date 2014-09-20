@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DayXEntry.h"
 
 @interface DayXEntryController : NSObject
 
@@ -14,9 +15,9 @@
 
 + (DayXEntryController *)sharedInstance;
 
-- (void)addEntry:(NSDictionary *)entry;
-- (void)removeEntry:(NSDictionary *)entry;
-- (void)replaceEntry:(NSDictionary *)oldEntry withEntry:(NSDictionary *)newEntry;
+- (void)addEntry:(DayXEntry *)entry;
+- (void)removeEntry:(DayXEntry *)entry;
+- (void)replaceEntry:(DayXEntry *)oldEntry withEntry:(DayXEntry *)newEntry;
 - (void)removeAllEntries;
 
 @end

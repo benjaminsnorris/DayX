@@ -8,14 +8,14 @@
 
 #import "DayXEntry.h"
 
-#define titleKey @"title"
-#define textKey @"text"
-#define dateKey @"date"
+#define TitleKey @"title"
+#define ContentKey @"content"
+#define DateKey @"date"
 
 @interface DayXEntry()
 
 @property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *text;
+@property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSDate *datestamp;
 
 @end
@@ -25,18 +25,18 @@
 - (NSDictionary *)entryDictionary {
     
     NSMutableDictionary *mutableDictionary = [NSMutableDictionary new];
-    if (self.title) [mutableDictionary setValue:self.title forKey:titleKey];
-    if (self.text) [mutableDictionary setValue:self.text forKey:textKey];
-    if (self.datestamp) [mutableDictionary setValue:self.datestamp forKey:dateKey];
+    if (self.title) [mutableDictionary setValue:self.title forKey:TitleKey];
+    if (self.content) [mutableDictionary setValue:self.content forKey:ContentKey];
+    if (self.datestamp) [mutableDictionary setValue:self.datestamp forKey:DateKey];
     
     return mutableDictionary;
 }
 
 - (id)initWithDictionary: (NSDictionary *)dictionary {
     
-    self.title = [dictionary objectForKey:titleKey];
-    self.text = [dictionary objectForKey:textKey];
-    self.datestamp = [dictionary objectForKey:dateKey];
+    self.title = [dictionary objectForKey:TitleKey];
+    self.content = [dictionary objectForKey:ContentKey];
+    self.datestamp = [dictionary objectForKey:DateKey];
     
     return self;
 }

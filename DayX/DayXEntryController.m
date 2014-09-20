@@ -8,7 +8,7 @@
 
 #import "DayXEntryController.h"
 
-#define EntryListKey @"entries"
+#define entryListKey @"entries"
 
 @interface DayXEntryController()
 
@@ -79,7 +79,7 @@
 }
 
 - (void)loadFromDefaults {
-    NSArray *entryDictionaries = [[NSUserDefaults standardUserDefaults] objectForKey:EntryListKey];
+    NSArray *entryDictionaries = [[NSUserDefaults standardUserDefaults] objectForKey:entryListKey];
     NSMutableArray *entries = [NSMutableArray new];
     for (NSDictionary *dictionary in entryDictionaries) {
         DayXEntry *entry = [[DayXEntry alloc] initWithDictionary:dictionary];
@@ -93,7 +93,7 @@
     for (DayXEntry *entry in self.entries) {
         [entryDictionaries addObject:[entry entryDictionary]];
     }
-    [[NSUserDefaults standardUserDefaults] setObject:entryDictionaries forKey:EntryListKey];
+    [[NSUserDefaults standardUserDefaults] setObject:entryDictionaries forKey:entryListKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

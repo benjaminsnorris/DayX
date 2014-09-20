@@ -9,9 +9,6 @@
 #import "DayXTableDataSource.h"
 #import "DayXEntryController.h"
 
-#define TitleKey @"title"
-#define ContentKey @"content"
-
 @implementation DayXTableDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -28,8 +25,13 @@
     DayXEntry *entry = [DayXEntryController sharedInstance].entries[indexPath.row];
     
     cell.textLabel.text = entry.title;
-//    cell.detailTextLabel.text = @"Datestamp";
-//    cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.7 alpha:1.0];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    NSString *formattedDateAndTime = [dateFormatter stringFromDate:entry.datestamp];
+    cell.detailTextLabel.text = formattedDateAndTime;
+    cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.7 alpha:1.0];
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     

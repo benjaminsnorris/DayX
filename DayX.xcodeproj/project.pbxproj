@@ -20,6 +20,7 @@
 		711A508D19388096005642EF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 711A508B19388096005642EF /* InfoPlist.strings */; };
 		711A508F19388096005642EF /* DayXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 711A508E19388096005642EF /* DayXTests.m */; };
 		E70D6B4E19CDB21B00F8263C /* DayXEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = E70D6B4D19CDB21B00F8263C /* DayXEntry.m */; };
+		E70D6B5119CDC58C00F8263C /* DayXTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E70D6B5019CDC58C00F8263C /* DayXTableViewCell.m */; };
 		E742397819CC85D1005A2407 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E742397719CC85D1005A2407 /* ListViewController.m */; };
 		E742397B19CC86C2005A2407 /* DayXTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E742397A19CC86C2005A2407 /* DayXTableDataSource.m */; };
 		E742397E19CC90CF005A2407 /* DayXEntryController.m in Sources */ = {isa = PBXBuildFile; fileRef = E742397D19CC90CF005A2407 /* DayXEntryController.m */; };
@@ -55,6 +56,8 @@
 		711A508E19388096005642EF /* DayXTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DayXTests.m; sourceTree = "<group>"; };
 		E70D6B4C19CDB21B00F8263C /* DayXEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayXEntry.h; sourceTree = "<group>"; };
 		E70D6B4D19CDB21B00F8263C /* DayXEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayXEntry.m; sourceTree = "<group>"; };
+		E70D6B4F19CDC58C00F8263C /* DayXTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayXTableViewCell.h; sourceTree = "<group>"; };
+		E70D6B5019CDC58C00F8263C /* DayXTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayXTableViewCell.m; sourceTree = "<group>"; };
 		E742397619CC85D1005A2407 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		E742397719CC85D1005A2407 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		E742397919CC86C2005A2407 /* DayXTableDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayXTableDataSource.h; sourceTree = "<group>"; };
@@ -128,6 +131,8 @@
 				E742397719CC85D1005A2407 /* ListViewController.m */,
 				E742397919CC86C2005A2407 /* DayXTableDataSource.h */,
 				E742397A19CC86C2005A2407 /* DayXTableDataSource.m */,
+				E70D6B4F19CDC58C00F8263C /* DayXTableViewCell.h */,
+				E70D6B5019CDC58C00F8263C /* DayXTableViewCell.m */,
 				E77CE2D919C9C631003E1D86 /* DetailViewController.h */,
 				E77CE2DA19C9C631003E1D86 /* DetailViewController.m */,
 				E742397C19CC90CF005A2407 /* DayXEntryController.h */,
@@ -272,6 +277,7 @@
 				E742397819CC85D1005A2407 /* ListViewController.m in Sources */,
 				E742397B19CC86C2005A2407 /* DayXTableDataSource.m in Sources */,
 				E77CE2DB19C9C631003E1D86 /* DetailViewController.m in Sources */,
+				E70D6B5119CDC58C00F8263C /* DayXTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,7 @@
 
 #import "DayXTableDataSource.h"
 #import "DayXEntryController.h"
+#import "DayXTableViewCell.h"
 
 @implementation DayXTableDataSource
 
@@ -16,24 +17,20 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    DayXTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+        cell = [[DayXTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     }
     
     DayXEntry *entry = [DayXEntryController sharedInstance].entries[indexPath.row];
-    
-    cell.textLabel.text = entry.title;
-    
+    cell.title.text = entry.title;
+    cell.contentSummary.text = entry.content;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
     NSString *formattedDateAndTime = [dateFormatter stringFromDate:entry.datestamp];
-    cell.detailTextLabel.text = formattedDateAndTime;
-    cell.detailTextLabel.textColor = [UIColor colorWithWhite:0.7 alpha:1.0];
-    
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.dateStamp.text = formattedDateAndTime;
     
     return cell;
 

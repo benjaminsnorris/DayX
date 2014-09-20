@@ -24,13 +24,7 @@
     }
     
     DayXEntry *entry = [DayXEntryController sharedInstance].entries[indexPath.row];
-    cell.title.text = entry.title;
-    cell.contentSummary.text = entry.content;
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    NSString *formattedDateAndTime = [dateFormatter stringFromDate:entry.datestamp];
-    cell.dateStamp.text = formattedDateAndTime;
+    [cell updateWithEntry:entry];
     
     return cell;
 

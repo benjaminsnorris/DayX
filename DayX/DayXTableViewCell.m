@@ -7,11 +7,18 @@
 //
 
 #import "DayXTableViewCell.h"
-#import "DayXEntryController.h"
 
 #define margin 15
 #define titleHeight 20
 #define subtitleHeight 15
+
+@interface DayXTableViewCell()
+
+@property (nonatomic, strong) UILabel *title;
+@property (nonatomic, strong) UILabel *contentSummary;
+@property (nonatomic, strong) UILabel *dateStamp;
+
+@end
 
 @implementation DayXTableViewCell
 
@@ -40,6 +47,21 @@
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return self;
+}
+
+- (void)updateWithEntry:(DayXEntry *)entry {
+    if (!entry) {
+        return;
+    }
+    
+    self.title.text = entry.title;
+    self.contentSummary.text = entry.content;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    NSString *formattedDateAndTime = [dateFormatter stringFromDate:entry.datestamp];
+    self.dateStamp.text = formattedDateAndTime;
+
 }
 - (void)awakeFromNib {
     // Initialization code

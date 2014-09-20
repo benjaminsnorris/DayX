@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DayXEntryController.h"
 
 @interface DayXTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) UILabel *title;
-@property (nonatomic, strong) UILabel *contentSummary;
-@property (nonatomic, strong) UILabel *dateStamp;
+- (void)updateWithEntry:(DayXEntry *)entry;
 
 @end

@@ -12,14 +12,6 @@
 #define contentKey @"content"
 #define dateKey @"date"
 
-@interface DayXEntry()
-
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *content;
-@property (nonatomic, strong) NSDate *datestamp;
-
-@end
-
 @implementation DayXEntry
 
 - (NSDictionary *)entryDictionary {

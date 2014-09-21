@@ -100,8 +100,11 @@
 }
 
 - (void)saveEntry {
-    NSDictionary *dictionary = @{titleKey: self.entryTitle.text, contentKey: self.entryContent.text, dateKey: [NSDate date]};
-    DayXEntry *entry = [[DayXEntry alloc] initWithDictionary:dictionary];
+    DayXEntry *entry = [DayXEntry new];
+    entry.title = self.entryTitle.text;
+    entry.content = self.entryContent.text;
+    entry.datestamp = [NSDate date];
+    
     if (self.entry) {
         [[DayXEntryController sharedInstance] replaceEntry:self.entry withEntry:entry];
     } else {

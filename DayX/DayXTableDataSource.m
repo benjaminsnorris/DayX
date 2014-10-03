@@ -23,7 +23,7 @@
         cell = [[DayXTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     }
     
-    DayXEntry *entry = [DayXEntryController sharedInstance].entries[indexPath.row];
+    Entry *entry = [DayXEntryController sharedInstance].entries[indexPath.row];
     [cell updateWithEntry:entry];
     
     return cell;

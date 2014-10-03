@@ -13,6 +13,6 @@
 
 @interface DetailViewController : UIViewController
 
-- (void)updateWithEntry:(DayXEntry *)entry;
+@property (nonatomic, strong) Entry *entry;
 
 @end

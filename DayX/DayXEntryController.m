@@ -7,12 +7,9 @@
 //
 
 #import "DayXEntryController.h"
-
-#define entryListKey @"entries"
+#import "Stack.h"
 
 @interface DayXEntryController()
-
-@property (nonatomic, strong) NSArray *entries;
 
 @end
 
@@ -23,78 +20,42 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[DayXEntryController alloc] init];
-        
-        [sharedInstance loadFromDefaults];
     });
     return sharedInstance;
 }
 
-- (void)addEntry:(DayXEntry *)entry {
-    if (!entry) {
-        return;
-    }
+- (NSArray *)entries {
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Entry"];
     
-    NSMutableArray *mutableEntries = [[NSMutableArray alloc] initWithArray:self.entries];
-    [mutableEntries addObject:entry];
-    
-    self.entries = mutableEntries;
-    [self synchronize];
+    return [[Stack sharedInstance].managedObjectContext executeFetchRequest:request error:nil];
 }
 
-- (void)removeEntry:(DayXEntry *)entry {
-    if (!entry) {
-        return;
-    }
+- (Entry *)addEntryWithTitle:(NSString *)title content:(NSString *)content dateStamp:(NSDate *)dateStamp {
+    Entry *entry = [NSEntityDescription insertNewObjectForEntityForName:@"Entry" inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
+    entry.title = title;
+    entry.content = content;
+    entry.dateStamp = dateStamp;
     
-    NSMutableArray *mutableEntries = self.entries.mutableCopy;
-    
-    if ([mutableEntries containsObject:entry]) {
-        [mutableEntries removeObject:entry];
-    }
-    
-    self.entries = mutableEntries;
     [self synchronize];
+    
+    return entry;
 }
 
-- (void)replaceEntry:(DayXEntry *)oldEntry withEntry:(DayXEntry *)newEntry {
-    
-    if (!oldEntry || !newEntry) {
-        return;
-    }
-    
-    NSMutableArray *mutableEntries = self.entries.mutableCopy;
-    
-    if ([mutableEntries containsObject:oldEntry]) {
-        NSInteger index = [mutableEntries indexOfObject:oldEntry];
-        [mutableEntries replaceObjectAtIndex:index withObject:newEntry];
-    }
-    
-    self.entries = mutableEntries;
+- (void)removeEntry:(Entry *)entry {
+//    [[Stack sharedInstance].managedObjectContext deleteObject:entry];
+    // This is the same as the previous line with a single MOC. With multiple, this one is safer.
+    [entry.managedObjectContext deleteObject:entry];
     [self synchronize];
 }
 
 - (void)removeAllEntries {
-    self.entries = nil;
-    [self synchronize];
-}
-
-- (void)loadFromDefaults {
-    NSArray *entryDictionaries = [[NSUserDefaults standardUserDefaults] objectForKey:entryListKey];
-    NSMutableArray *entries = [NSMutableArray new];
-    for (NSDictionary *dictionary in entryDictionaries) {
-        DayXEntry *entry = [[DayXEntry alloc] initWithDictionary:dictionary];
-        [entries addObject:entry];
+    for (Entry *entry in self.entries) {
+        [[Stack sharedInstance].managedObjectContext deleteObject:entry];
     }
-    self.entries = entries;
 }
 
 - (void)synchronize {
-    NSMutableArray *entryDictionaries = [NSMutableArray new];
-    for (DayXEntry *entry in self.entries) {
-        [entryDictionaries addObject:[entry entryDictionary]];
-    }
-    [[NSUserDefaults standardUserDefaults] setObject:entryDictionaries forKey:entryListKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[Stack sharedInstance].managedObjectContext save:nil];
 }
 
 @end

@@ -24,7 +24,6 @@
 @property (nonatomic, strong) UILabel *dateAndTime;
 @property (nonatomic, strong) UIBarButtonItem *saveButton;
 @property (nonatomic, assign) CGFloat top;
-@property (nonatomic, strong) DayXEntry *entry;
 
 @end
 
@@ -81,17 +80,22 @@
     
     self.saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveAndClose)];
     self.navigationItem.rightBarButtonItem = self.saveButton;
+    
+    if (self.entry) {
+        [self updateWithEntry:self.entry];
+    }
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
     [self saveEntry];
 }
-- (void)updateWithEntry:(DayXEntry *)entry {
+
+- (void)updateWithEntry:(Entry *)entry {
     self.entry = entry;
     
     self.entryTitle.text = entry.title;
     self.entryContent.text = entry.content;
-    self.entryDatestamp = entry.datestamp;
+    self.entryDatestamp = entry.dateStamp;
 }
 
 - (void)saveAndClose {
@@ -100,18 +104,16 @@
 }
 
 - (void)saveEntry {
-    DayXEntry *entry = [DayXEntry new];
-    entry.title = self.entryTitle.text;
-    entry.content = self.entryContent.text;
-    entry.datestamp = [NSDate date];
     
     if (self.entry) {
-        [[DayXEntryController sharedInstance] replaceEntry:self.entry withEntry:entry];
+        self.entry.title = self.entryTitle.text;
+        self.entry.content = self.entryContent.text;
+        self.entry.dateStamp = [NSDate date];
+        
+        [[DayXEntryController sharedInstance] synchronize];
     } else {
-        [[DayXEntryController sharedInstance] addEntry:entry];
+        self.entry = [[DayXEntryController sharedInstance] addEntryWithTitle:self.entryTitle.text content:self.entryContent.text dateStamp:[NSDate date]];
     }
-    [self updateWithEntry:entry];
-    [self.dateAndTime setText:[self formateDate:[NSDate date]]];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

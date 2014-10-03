@@ -46,10 +46,12 @@
     
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
+    self.autoresizingMask = (UIViewAutoresizingFlexibleWidth);
+    
     return self;
 }
 
-- (void)updateWithEntry:(DayXEntry *)entry {
+- (void)updateWithEntry:(Entry *)entry {
     if (!entry) {
         return;
     }
@@ -59,7 +61,7 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    NSString *formattedDateAndTime = [dateFormatter stringFromDate:entry.datestamp];
+    NSString *formattedDateAndTime = [dateFormatter stringFromDate:entry.dateStamp];
     self.dateStamp.text = formattedDateAndTime;
 
 }

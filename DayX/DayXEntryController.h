@@ -7,17 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DayXEntry.h"
+#import "Entry.h"
 
 @interface DayXEntryController : NSObject
 
-@property (nonatomic, strong, readonly) NSArray *entries;
-
 + (DayXEntryController *)sharedInstance;
 
-- (void)addEntry:(DayXEntry *)entry;
-- (void)removeEntry:(DayXEntry *)entry;
-- (void)replaceEntry:(DayXEntry *)oldEntry withEntry:(DayXEntry *)newEntry;
+- (Entry *)addEntryWithTitle:(NSString *)title content:(NSString *)content dateStamp:(NSDate *)dateStamp;
+- (void)removeEntry:(Entry *)entry;
 - (void)removeAllEntries;
+- (NSArray *)entries;
+- (void)synchronize;
 
 @end

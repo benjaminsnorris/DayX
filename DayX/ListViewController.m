@@ -34,8 +34,8 @@
     self.dataSource = [DayXTableDataSource new];
     self.tableView.dataSource = self.dataSource;
     [self.dataSource registerTableView:self.tableView];
-    
     self.tableView.delegate = self;
+    self.tableView.autoresizingMask = (UIViewAutoresizingFlexibleHeight);
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add)];
     self.navigationItem.rightBarButtonItem = addButton;
@@ -64,7 +64,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     DetailViewController *detailViewController = [DetailViewController new];
-    [detailViewController updateWithEntry:[DayXEntryController sharedInstance].entries[indexPath.row]];
+    detailViewController.entry = [DayXEntryController sharedInstance].entries[indexPath.row];
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 

@@ -11,6 +11,6 @@
 
 @interface DayXTableViewCell : UITableViewCell
 
-- (void)updateWithEntry:(DayXEntry *)entry;
+- (void)updateWithEntry:(Entry *)entry;
 
 @end
